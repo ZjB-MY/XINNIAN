@@ -22,7 +22,7 @@
             touch-action: none;
             font-family: "STXingkai", "SimHei", "Microsoft Yahei", sans-serif;
         }
-        /* 初始点击按钮样式 */
+        /* 初始点击按钮样式 - 适配手机 */
         #yhBtn {
             position: fixed;
             top: 0;
@@ -35,30 +35,31 @@
             justify-content: center;
             align-items: center;
             color: #fff;
-            font-size: 30px;
+            font-size: 5vw; /* 改用视口宽度，适配手机 */
             background: #000;
             cursor: pointer;
         }
         #yhBtn .icon {
-            font-size: 80px;
+            font-size: 15vw; /* 手机端按屏幕比例缩放 */
             margin-bottom: 30px;
         }
-        /* 大号数字倒计时样式（5→1）+ 新年快乐一行显示 */
+        /* 大号数字倒计时样式 - 适配手机 */
         .num-countdown {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 12rem; /* 缩小字号避免换行 */
+            font-size: 25vw; /* 手机端按屏幕宽度缩放，不超屏 */
             color: #fff;
             text-shadow: 0 0 20px #ff0066, 0 0 40px #ff0066, 0 0 60px #ff0066;
             z-index: 20;
             display: none;
-            white-space: nowrap; /* 强制文字不换行 */
+            white-space: nowrap;
             text-align: center;
-            width: 100%; /* 占满宽度确保居中 */
+            width: 100%;
+            line-height: 1; /* 减少行高避免超出屏幕 */
         }
-        /* 实时倒计时文字容器 - 5→1结束后才显示 */
+        /* 实时倒计时文字容器 - 适配手机 */
         .countdown-panel {
             position: fixed;
             top: 20px;
@@ -67,7 +68,7 @@
             z-index: 10;
             color: #fff;
             text-align: center;
-            padding: 0 20px;
+            padding: 0 10px; /* 减少左右内边距 */
             opacity: 0;
             transition: opacity 0.8s ease;
         }
@@ -75,42 +76,43 @@
             opacity: 1;
         }
         .countdown-panel h2 {
-            font-size: 2rem;
-            margin-bottom: 10px;
+            font-size: 6vw; /* 手机端适配 */
+            margin-bottom: 5px;
             text-shadow: 0 0 10px #fff;
         }
         .countdown-panel .year {
-            font-size: 3rem;
+            font-size: 8vw; /* 手机端适配 */
             color: #ff4d94;
             text-shadow: 0 0 15px #ff4d94;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
         .countdown-panel .time-text {
-            font-size: 1.2rem;
-            margin-bottom: 8px;
+            font-size: 4vw; /* 手机端适配 */
+            margin-bottom: 5px;
         }
         .countdown-panel .time-num {
-            font-size: 1.5rem;
+            font-size: 5vw; /* 手机端适配 */
             color: #ff4d94;
             text-shadow: 0 0 15px #ff4d94;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
+            word-break: break-all; /* 防止时间文字过长超出屏幕 */
         }
         .countdown-panel .blessing {
-            font-size: 1.2rem;
+            font-size: 4vw; /* 手机端适配 */
             text-shadow: 0 0 10px #fff;
-            margin-bottom: 8px;
-        }
-        .countdown-panel .tip {
-            font-size: 1rem;
-            color: #ccc;
             margin-bottom: 5px;
         }
+        .countdown-panel .tip {
+            font-size: 3.5vw; /* 手机端适配 */
+            color: #ccc;
+            margin-bottom: 3px;
+        }
         .countdown-panel .copyright {
-            font-size: 1rem;
+            font-size: 3.5vw; /* 手机端适配 */
             color: #999;
         }
-        /* 画布容器 */
+        /* 画布容器 - 确保占满手机屏幕 */
         .canvas-container {
             position: fixed;
             top: 0;
@@ -131,6 +133,37 @@
         }
         #main-canvas {
             z-index: 2;
+        }
+
+        /* 媒体查询 - 针对大屏设备（平板/电脑）做回退 */
+        @media (min-width: 768px) {
+            #yhBtn {
+                font-size: 30px;
+            }
+            #yhBtn .icon {
+                font-size: 80px;
+            }
+            .num-countdown {
+                font-size: 12rem;
+            }
+            .countdown-panel h2 {
+                font-size: 2rem;
+            }
+            .countdown-panel .year {
+                font-size: 3rem;
+            }
+            .countdown-panel .time-text {
+                font-size: 1.2rem;
+            }
+            .countdown-panel .time-num {
+                font-size: 1.5rem;
+            }
+            .countdown-panel .blessing {
+                font-size: 1.2rem;
+            }
+            .countdown-panel .tip, .countdown-panel .copyright {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
@@ -414,5 +447,4 @@
         };
     </script>
 </body>
-
 </html>
